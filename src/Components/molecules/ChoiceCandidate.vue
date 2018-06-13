@@ -61,6 +61,10 @@
     grid-template-columns: 115px 1fr;
     grid-gap: 1em;
     align-items: center;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 75px 1fr;
+    }
   }
 
   .photo,

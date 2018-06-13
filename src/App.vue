@@ -26,7 +26,7 @@
       }
     },
     beforeCreate () {
-      this.$store.commit(types.RECEIVE_SITE, {site: window.calculadora_de_votos__data})
+      this.$store.commit(types.RECEIVE_SITE, {site: ''})
       this.$store.dispatch('fetchContent')
     },
     created () {

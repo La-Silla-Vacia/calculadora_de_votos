@@ -128,7 +128,7 @@ const mutations = {
     } else {
       const total = given[from]['Iván Duque'] + given[from]['Gustavo Petro'] + given[from]['Voto en blanco']
       if (total - prevAmount + amount > 100) {
-        alert('Ha elegido más del 100 por ciento de los votos de ' + to + ' para repartir. Puede reducir alguno de los que ya seleccionó para distribuir el porcentaje que acaba de elegir.')
+        alert('Ha elegido más del 100 por ciento de los votos de ' + from + ' para repartir. Puede reducir alguno de los que ya seleccionó para distribuir el porcentaje que acaba de elegir.')
       } else {
         given[from][to] = amount
       }

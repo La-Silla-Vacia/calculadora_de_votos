@@ -17,10 +17,14 @@
         :data="item"
       />
     </div>
+
+    <button @click="handleClick" :class="$style.button">Reajustar</button>
   </div>
 </template>
 
 <script>
+  import * as types from '../../store/mutation-types'
+
   import Candidate from './Candidate'
   import ChoiceCandidate from './ChoiceCandidate'
 
@@ -36,7 +40,9 @@
       }
     },
     methods: {
-
+      handleClick () {
+        this.$store.commit(types.RECEIVE_RESET, 'all')
+      }
     }
   }
 </script>
@@ -63,5 +69,13 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 40px;
     padding-bottom: 2em;
+  }
+
+  .button {
+    background-color: $color__primary--base;
+    border: 0;
+    color: #fff;
+    margin: 0 auto;
+    display: block;
   }
 </style>

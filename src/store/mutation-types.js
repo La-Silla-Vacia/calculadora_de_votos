@@ -4,4 +4,6 @@ export const RECEIVE_SITE = 'RECEIVE_SITE'
 
 export const RECEIVE_VOTES = 'RECEIVE_VOTES'
 
+export const RECEIVE_RESET = 'RECEIVE_RESET'
+
 export const UPDATE_APP = 'UPDATE_APP'

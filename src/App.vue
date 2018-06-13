@@ -120,16 +120,13 @@
 </style>
 
 <style module lang="scss">
+  @import './assets/styles/base';
+
   .container {
-    font-family: map(fonts, family-sans);
+    font-family: $font__family--sans;
     font-size: 16px;
-    background-color: map(colors, neutral, lightest);
     transition: .2s;
     display: block;
-  }
-
-  .inner {
-    clear: fix-legacy;
   }
 
   .title {

@@ -133,6 +133,13 @@ const mutations = {
         given[from][to] = amount
       }
     }
+  },
+  [types.RECEIVE_RESET] (state) {
+    state.given = {
+      'Sergio Fajardo': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0},
+      'Humberto De La Calle': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0},
+      'Germán Vargas Lleras': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0}
+    }
   }
 }
 

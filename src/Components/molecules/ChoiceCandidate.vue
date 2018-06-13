@@ -8,7 +8,7 @@
       <footer :class="$style.footer">
         <Bar :color="data.color" :size="percentage"/>
 
-        {{Math.round(data.votes - givenVotes)}} votos
+        {{Math.round(data.votes - givenVotes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}} votos
       </footer>
     </div>
 

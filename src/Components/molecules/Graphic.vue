@@ -18,7 +18,7 @@
       />
     </div>
 
-    <button @click="handleClick" :class="$style.button">Reajustar</button>
+    <button @click="handleClick" :class="$style.button">Volver a calcular</button>
   </div>
 </template>
 

@@ -16,7 +16,7 @@
 
       <div :class="$style.description">
         {{Math.round(percentage)}}% <br/>
-        {{Math.round(data.votes + otherVotes)}} votos
+        {{Math.round(data.votes + otherVotes).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}} votos
       </div>
     </div>
   </div>

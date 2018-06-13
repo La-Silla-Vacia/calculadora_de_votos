@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.root">
-    <aside :class="$style.aside">
+    <div :class="$style.aside">
       <img :class="$style.photo" v-if="data.photo" width="100" :src="data.photo" alt=""/>
       <div :class="$style.nophoto" v-else/>
       <div :class="$style.name">{{data.name}}</div>
@@ -10,14 +10,14 @@
 
         {{data.votes}} votos
       </footer>
-    </aside>
+    </div>
 
     <div :class="$style.inner">
       <div :class="$style.title">Se repartirían así:</div>
 
       <div :class="$style.table">
         <div v-for="item in items" :key="item.name" v-if="item.passed" :class="$style.row">
-          <Bar :show-percentage="1" :color="data.color"/>
+          <Bar :from="data.name" :to="item.name" :show-percentage="1" :color="data.color"/>
           <span>{{item.name}}</span>
         </div>
       </div>
@@ -45,6 +45,11 @@
         const userVotes = this.data.votes
         const percentage = userVotes * 100 / availableVotes
         return percentage
+      }
+    },
+    methods: {
+      handlePercentageChange (a, b) {
+        console.log(a, b)
       }
     }
   }

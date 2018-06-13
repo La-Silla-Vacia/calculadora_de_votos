@@ -12,25 +12,31 @@
 </template>
 
 <script>
+  import * as types from '../../store/mutation-types'
+
   export default {
     name: 'Bar',
     props: [
       'color',
       'showPercentage',
       'size',
-      'small'
+      'small',
+      'from',
+      'to'
     ],
     methods: {
       handleClick (e) {
+        if (!this.from || !this.to) return
         const barWidth = this.$refs.bar.offsetWidth
         const clickPos = e.offsetX
         const percentage = clickPos * 100 / barWidth
-        this.customSize = percentage + '%'
+        this.$store.commit(types.RECEIVE_VOTES, {from: this.from, to: this.to, amount: percentage})
       }
     },
-    data () {
-      return {
-        customSize: null
+    computed: {
+      customSize () {
+        if (!this.from || !this.to) return null
+        return this.$store.getters.getGivenVotes({from: this.from, to: this.to}) + '%'
       }
     }
   }

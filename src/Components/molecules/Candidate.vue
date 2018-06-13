@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
-    <aside :class="$style.aside">
+    <div :class="$style.aside">
       <img :class="$style.photo" v-if="data.photo" width="100" :src="data.photo" alt=""/>
       <div :class="$style.nophoto" v-else/>
       <div :class="$style.name">{{data.name}}</div>
-    </aside>
+    </div>
     <div :class="$style.inner">
       <Bar :small="1" :size="percentage" />
 
@@ -31,7 +31,8 @@
       percentage () {
         const availableVotes = this.$store.getters.getAvailableVotes()
         const userVotes = this.data.votes
-        const percentage = userVotes * 100 / availableVotes
+        const otherVotes = this.$store.getters.getOtherVotes(this.data.name)
+        const percentage = (userVotes + otherVotes) * 100 / availableVotes
         return percentage
       }
     }

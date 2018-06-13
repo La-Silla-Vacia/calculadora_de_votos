@@ -2,4 +2,6 @@ export const RECEIVE_PAGES = 'RECEIVE_PAGES'
 
 export const RECEIVE_SITE = 'RECEIVE_SITE'
 
+export const RECEIVE_VOTES = 'RECEIVE_VOTES'
+
 export const UPDATE_APP = 'UPDATE_APP'

@@ -3,6 +3,12 @@ import * as types from '../mutation-types'
 
 const state = {
   site: {},
+  candidates: {},
+  given: {
+    'Sergio Fajardo': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0},
+    'Humberto De La Calle': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0},
+    'Germán Vargas Lleras': {'Iván Duque': 0, 'Gustavo Petro': 0, 'Voto en blanco': 0}
+  },
   availableVotes: 19218882,
   loaded: false
 }
@@ -11,8 +17,27 @@ const getters = {
   getItems: () => (uid, collection = state.site) => {
     return collection
   },
-  getAvailableVotes: ()=> (uid, collection = state.availableVotes) => {
+  getAvailableVotes: () => (uid, collection = state.availableVotes) => {
     return collection
+  },
+  getOtherVotes: (state) => (from, collection = state.given) => {
+    const sergioPercentage = collection['Sergio Fajardo'][from]
+    const sergioTotalVotes = state.candidates['Sergio Fajardo']
+    const sergioVotes = sergioPercentage * sergioTotalVotes / 100
+
+    const humbertoPercentage = collection['Humberto De La Calle'][from]
+    const humbertoTotalVotes = state.candidates['Humberto De La Calle']
+    const humbertoVotes = humbertoPercentage * humbertoTotalVotes / 100
+
+    const germanPercentage = collection['Germán Vargas Lleras'][from]
+    const germanTotalVotes = state.candidates['Germán Vargas Lleras']
+    const germanVotes = germanPercentage * germanTotalVotes / 100
+
+    return sergioVotes + humbertoVotes + germanVotes
+  },
+  getGivenVotes: () => (data, collection = state.given) => {
+    const {from, to} = data
+    return collection[from][to]
   },
   isLoaded: () => (url, loaded = state.loaded) => {
     return loaded
@@ -73,6 +98,16 @@ const mutations = {
   [types.RECEIVE_SITE] (state, {site, loaded}) {
     state.loaded = loaded
     state.site = site
+
+    for (let i = 0; i < site.length; i += 1) {
+      const candidate = site[i]
+      if (!candidate.passed) {
+        state.candidates[candidate.name] = candidate.votes
+      }
+    }
+  },
+  [types.RECEIVE_VOTES] ({given}, {from, to, amount}) {
+    given[from][to] = amount
   }
 }
 

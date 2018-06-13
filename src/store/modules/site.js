@@ -35,6 +35,15 @@ const getters = {
 
     return sergioVotes + humbertoVotes + germanVotes
   },
+  getGivenVoteCount: (state) => (from, collection = state.given) => {
+    let amount = 0
+    Object.keys(collection[from]).map((item) => {
+      amount += collection[from][item]
+    })
+    const totalVotes = state.candidates[from]
+    const total = amount * totalVotes / 100
+    return total
+  },
   getGivenVotes: () => (data, collection = state.given) => {
     const {from, to} = data
     return collection[from][to]
@@ -112,7 +121,6 @@ const mutations = {
       given[from][to] = amount
     } else {
       const total = given[from]['Iván Duque'] + given[from]['Gustavo Petro'] + given[from]['Voto en blanco']
-      console.log(total, amount)
       if (total - prevAmount + amount > 100) {
         alert('You selected more then 100% to divide! Give another candidate less votes to increase ' + to + '\'s votes.')
       } else {

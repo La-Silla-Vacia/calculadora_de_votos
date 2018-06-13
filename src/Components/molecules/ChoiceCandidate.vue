@@ -8,7 +8,7 @@
       <footer :class="$style.footer">
         <Bar :color="data.color" :size="percentage"/>
 
-        {{data.votes}} votos
+        {{Math.round(data.votes - givenVotes)}} votos
       </footer>
     </div>
 
@@ -40,16 +40,14 @@
       items () {
         return this.$store.getters.getItems()
       },
+      givenVotes () {
+        return this.$store.getters.getGivenVoteCount(this.data.name)
+      },
       percentage () {
         const availableVotes = this.$store.getters.getAvailableVotes()
         const userVotes = this.data.votes
-        const percentage = userVotes * 100 / availableVotes
+        const percentage = (userVotes - this.givenVotes) * 100 / availableVotes
         return percentage
-      }
-    },
-    methods: {
-      handlePercentageChange (a, b) {
-        console.log(a, b)
       }
     }
   }

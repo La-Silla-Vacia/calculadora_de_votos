@@ -10,7 +10,7 @@
 
       <div :class="$style.description">
         {{Math.round(percentage)}}% <br/>
-        {{data.votes}} votos
+        {{Math.round(data.votes + otherVotes)}} votos
       </div>
     </div>
   </div>
@@ -28,11 +28,13 @@
       'data'
     ],
     computed: {
+      otherVotes () {
+        return this.$store.getters.getOtherVotes(this.data.name)
+      },
       percentage () {
         const availableVotes = this.$store.getters.getAvailableVotes()
         const userVotes = this.data.votes
-        const otherVotes = this.$store.getters.getOtherVotes(this.data.name)
-        const percentage = (userVotes + otherVotes) * 100 / availableVotes
+        const percentage = (userVotes + this.otherVotes) * 100 / availableVotes
         return percentage
       }
     }

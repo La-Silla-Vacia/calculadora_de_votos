@@ -6,6 +6,7 @@
       <span @click="setAmount(75)">75%</span>
     </header>
     <div :class="$style.bar" ref="bar" @click="handleClick">
+      <span :class="$style.percentage" v-if="customSize">{{Math.round(customSize.split('%')[0])}}%</span>
       <div :class="$style.fill" :style="{backgroundColor: color, width: customSize || size + '%'}"/>
       <div v-if="sergio" :class="$style.fill" :style="{backgroundColor: '#267E3E', width: sergio + '%'}"/>
       <div v-if="humberto" :class="$style.fill" :style="{backgroundColor: '#C02238', width: humberto + '%'}"/>
@@ -86,12 +87,21 @@
     height: 16px;
     border: 1px solid #e8e8e8;
     cursor: pointer;
+    position: relative;
   }
 
   .fill {
     height: 100%;
-    width: 0%;
+    width: 0;
     background-color: $color__primary--base;
     float: left;
+  }
+
+  .percentage {
+    position: absolute;
+    top: 0;
+    font-size: 10px !important;
+    left: 4px;
+    color: #ccc;
   }
 </style>

@@ -7,6 +7,9 @@
     </header>
     <div :class="$style.bar" ref="bar" @click="handleClick">
       <div :class="$style.fill" :style="{backgroundColor: color, width: customSize || size + '%'}"/>
+      <div v-if="sergio" :class="$style.fill" :style="{backgroundColor: '#267E3E', width: sergio + '%'}"/>
+      <div v-if="humberto" :class="$style.fill" :style="{backgroundColor: '#C02238', width: humberto + '%'}"/>
+      <div v-if="german" :class="$style.fill" :style="{backgroundColor: '#7F44C3', width: german + '%'}"/>
     </div>
   </div>
 </template>
@@ -22,7 +25,10 @@
       'size',
       'small',
       'from',
-      'to'
+      'to',
+      'sergio',
+      'humberto',
+      'german'
     ],
     methods: {
       handleClick (e) {
@@ -85,5 +91,6 @@
     height: 100%;
     width: 0%;
     background-color: $color__primary--base;
+    float: left;
   }
 </style>

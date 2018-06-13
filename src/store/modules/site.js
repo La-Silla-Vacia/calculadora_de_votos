@@ -20,7 +20,7 @@ const getters = {
   getAvailableVotes: () => (uid, collection = state.availableVotes) => {
     return collection
   },
-  getOtherVotes: (state) => (from, collection = state.given) => {
+  getOtherVotes: (state) => ({from, splitted}, collection = state.given) => {
     const sergioPercentage = collection['Sergio Fajardo'][from]
     const sergioTotalVotes = state.candidates['Sergio Fajardo']
     const sergioVotes = sergioPercentage * sergioTotalVotes / 100
@@ -32,7 +32,13 @@ const getters = {
     const germanPercentage = collection['Germán Vargas Lleras'][from]
     const germanTotalVotes = state.candidates['Germán Vargas Lleras']
     const germanVotes = germanPercentage * germanTotalVotes / 100
-
+    if (splitted) {
+      return {
+        sergio: sergioVotes * 100 / state.availableVotes,
+        humberto: humbertoVotes * 100 / state.availableVotes,
+        german: germanVotes * 100 / state.availableVotes
+      }
+    }
     return sergioVotes + humbertoVotes + germanVotes
   },
   getGivenVoteCount: (state) => (from, collection = state.given) => {

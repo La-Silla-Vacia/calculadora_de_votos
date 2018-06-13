@@ -6,7 +6,13 @@
       <div :class="$style.name">{{data.name}}</div>
     </div>
     <div :class="$style.inner">
-      <Bar :small="1" :size="percentage" />
+      <Bar
+        :small="1"
+        :size="percentage"
+        :sergio="percentages.sergio"
+        :humberto="percentages.humberto"
+        :german="percentages.german"
+      />
 
       <div :class="$style.description">
         {{Math.round(percentage)}}% <br/>
@@ -29,12 +35,15 @@
     ],
     computed: {
       otherVotes () {
-        return this.$store.getters.getOtherVotes(this.data.name)
+        return this.$store.getters.getOtherVotes({from: this.data.name})
+      },
+      percentages () {
+        return this.$store.getters.getOtherVotes({from: this.data.name, splitted: true})
       },
       percentage () {
         const availableVotes = this.$store.getters.getAvailableVotes()
         const userVotes = this.data.votes
-        const percentage = (userVotes + this.otherVotes) * 100 / availableVotes
+        const percentage = userVotes * 100 / availableVotes
         return percentage
       }
     }

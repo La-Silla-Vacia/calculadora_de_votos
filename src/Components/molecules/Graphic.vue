@@ -1,23 +1,35 @@
 <template>
   <div :class="$style.container">
-    <button
+    <div :class="$style.candidates">
+      <Candidate
         v-for="item in items"
-        :class="$style.circle"
+        v-if="item.passed"
         :key="item.name"
-        :style="{width: 10, height: 10}"
-        @click="handleClick(item.name)">
-      {{item.name}}
-    </button>
+        :data="item">
+      </Candidate>
+    </div>
+
+    <div :class="$style.choices">
+      <ChoiceCandidate
+        v-for="item in items"
+        v-if="!item.passed"
+        :key="item.name"
+        :data="item"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+  import Candidate from './Candidate'
+  import ChoiceCandidate from './ChoiceCandidate'
+
   export default {
     name: 'Graphic',
-    components: {},
-    mounted () {
+    components: {
+      ChoiceCandidate,
+      Candidate
     },
-    methods: {},
     computed: {
       items () {
         return this.$store.getters.getItems()
@@ -38,24 +50,20 @@
     width: 100%;
     height: 100%;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-bottom: 2em;
   }
 
-  .circle {
-    border-radius: 50%;
-    background-color: $color__red--santander;
-    display: flex;
-    align-items: center;
+  .candidates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    grid-gap: 40px;
+    padding-bottom: 2em;
     justify-content: center;
-    transition: .4s;
-    border: 0;
+  }
 
-    &:hover {
-      background-color: $color__red--lider;
-      color: #fff;
-    }
+  .choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 40px;
+    padding-bottom: 2em;
   }
 </style>

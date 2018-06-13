@@ -2,7 +2,6 @@
   <div :class="[$style.container, {[$style.loading]: loading}]" id="app">
     <LoadScreen v-if="loading" />
     <div v-else :class="$style.inner">
-      <h2 :class="$style.title">Hello calculadora_de_votos!</h2>
       <Graphic />
     </div>
   </div>
@@ -112,6 +111,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+
+  .article-content.col-sm-12.col-md-8 {
+    width: 98% !important;
+    margin-left: 0 !important
   }
 </style>
 

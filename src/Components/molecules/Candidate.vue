@@ -8,7 +8,7 @@
     <div :class="$style.inner">
       <Bar
         :small="1"
-        :size="percentage"
+        :size="startPercentage"
         :sergio="percentages.sergio"
         :humberto="percentages.humberto"
         :german="percentages.german"
@@ -40,11 +40,16 @@
       percentages () {
         return this.$store.getters.getOtherVotes({from: this.data.name, splitted: true})
       },
-      percentage () {
-        const availableVotes = this.$store.getters.getAvailableVotes()
+      availableVotes () {
+        return this.$store.getters.getAvailableVotes()
+      },
+      startPercentage () {
         const userVotes = this.data.votes
-        const percentage = userVotes * 100 / availableVotes
+        const percentage = userVotes * 100 / this.availableVotes
         return percentage
+      },
+      percentage () {
+        return this.startPercentage + (this.otherVotes * 100 / this.availableVotes)
       }
     }
   }

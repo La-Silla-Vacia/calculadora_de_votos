@@ -1,9 +1,9 @@
 <template>
   <div :class="[$style.root, {[$style.small]: small}]">
     <header v-if="showPercentage" :class="$style.header">
-      <span>25%</span>
-      <span>50%</span>
-      <span>75%</span>
+      <span @click="setAmount(25)">25%</span>
+      <span @click="setAmount(50)">50%</span>
+      <span @click="setAmount(75)">75%</span>
     </header>
     <div :class="$style.bar" ref="bar" @click="handleClick">
       <div :class="$style.fill" :style="{backgroundColor: color, width: customSize || size + '%'}"/>
@@ -36,6 +36,9 @@
         const barWidth = this.$refs.bar.offsetWidth
         const clickPos = e.offsetX
         const percentage = clickPos * 100 / barWidth
+        this.setAmount(percentage)
+      },
+      setAmount (percentage) {
         this.$store.commit(types.RECEIVE_VOTES, {from: this.from, to: this.to, amount: percentage})
       }
     },
@@ -53,7 +56,8 @@
 
   .header {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 18px;
 
     & span {
       font-size: 12px;
@@ -69,10 +73,6 @@
         background-color: currentColor;
         display: block;
         margin-left: 50%;
-      }
-
-      &:first-child {
-        grid-column-start: 2;
       }
 
       &:nth-child(2)::after {

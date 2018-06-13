@@ -36,9 +36,7 @@
       }
     },
     methods: {
-      handleClick (name) {
-        alert(name)
-      }
+
     }
   }
 </script>

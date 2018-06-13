@@ -1,12 +1,12 @@
 <template>
-  <div :class="$style.root">
+  <div :class="[$style.root, {[$style.small]: small}]">
     <header v-if="showPercentage" :class="$style.header">
       <span>25%</span>
       <span>50%</span>
       <span>75%</span>
     </header>
-    <div :class="$style.bar">
-      <div :class="$style.fill" :style="{backgroundColor: color, width: size + '%'}"/>
+    <div :class="$style.bar" ref="bar" @click="handleClick">
+      <div :class="$style.fill" :style="{backgroundColor: color, width: customSize || size + '%'}"/>
     </div>
   </div>
 </template>
@@ -17,8 +17,22 @@
     props: [
       'color',
       'showPercentage',
-      'size'
-    ]
+      'size',
+      'small'
+    ],
+    methods: {
+      handleClick (e) {
+        const barWidth = this.$refs.bar.offsetWidth
+        const clickPos = e.offsetX
+        const percentage = clickPos * 100 / barWidth
+        this.customSize = percentage + '%'
+      }
+    },
+    data () {
+      return {
+        customSize: null
+      }
+    }
   }
 </script>
 
@@ -63,7 +77,7 @@
 
   .fill {
     height: 100%;
-    width: 100%;
+    width: 0%;
     background-color: $color__primary--base;
   }
 </style>

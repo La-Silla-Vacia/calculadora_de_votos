@@ -6,7 +6,7 @@
       <div :class="$style.name">{{data.name}}</div>
 
       <footer :class="$style.footer">
-        <Bar :color="data.color"/>
+        <Bar :color="data.color" :size="percentage"/>
 
         {{data.votes}} votos
       </footer>
@@ -39,6 +39,12 @@
     computed: {
       items () {
         return this.$store.getters.getItems()
+      },
+      percentage () {
+        const availableVotes = this.$store.getters.getAvailableVotes()
+        const userVotes = this.data.votes
+        const percentage = userVotes * 100 / availableVotes
+        return percentage
       }
     }
   }
@@ -92,7 +98,7 @@
 
   .row {
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 1fr 82px;
     align-items: flex-end;
     grid-gap: 14px;
     margin-bottom: 10px;

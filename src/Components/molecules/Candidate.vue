@@ -6,9 +6,8 @@
       <div :class="$style.name">{{data.name}}</div>
     </aside>
     <div :class="$style.inner">
-      <div :class="$style.bar">
-        <div :class="$style.fill" :style="{width: percentage + '%'}"/>
-      </div>
+      <Bar :small="1" :size="percentage" />
+
       <div :class="$style.description">
         {{Math.round(percentage)}}% <br/>
         {{data.votes}} votos
@@ -18,8 +17,13 @@
 </template>
 
 <script>
+  import Bar from '../atoms/Bar'
+
   export default {
     name: 'Candidate',
+    components: {
+      Bar
+    },
     props: [
       'data'
     ],

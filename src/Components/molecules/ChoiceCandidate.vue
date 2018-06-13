@@ -60,7 +60,7 @@
 
   .root {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 115px 1fr;
     grid-gap: 1em;
     align-items: center;
   }

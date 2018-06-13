@@ -107,7 +107,18 @@ const mutations = {
     }
   },
   [types.RECEIVE_VOTES] ({given}, {from, to, amount}) {
-    given[from][to] = amount
+    const prevAmount = given[from][to]
+    if (prevAmount > amount) {
+      given[from][to] = amount
+    } else {
+      const total = given[from]['Iván Duque'] + given[from]['Gustavo Petro'] + given[from]['Voto en blanco']
+      console.log(total, amount)
+      if (total - prevAmount + amount > 100) {
+        alert('You selected more then 100% to divide! Give another candidate less votes to increase ' + to + '\'s votes.')
+      } else {
+        given[from][to] = amount
+      }
+    }
   }
 }
 

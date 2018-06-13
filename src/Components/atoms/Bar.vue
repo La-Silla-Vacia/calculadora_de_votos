@@ -1,12 +1,12 @@
 <template>
   <div :class="$style.root">
-    <header :class="$style.header">
+    <header v-if="showPercentage" :class="$style.header">
       <span>25%</span>
       <span>50%</span>
       <span>75%</span>
     </header>
     <div :class="$style.bar">
-      <div :class="$style.fill" :style="{backgroundColor: color}"/>
+      <div :class="$style.fill" :style="{backgroundColor: color, width: size + '%'}"/>
     </div>
   </div>
 </template>
@@ -15,7 +15,9 @@
   export default {
     name: 'Bar',
     props: [
-      'color'
+      'color',
+      'showPercentage',
+      'size'
     ]
   }
 </script>
@@ -31,13 +33,14 @@
       font-size: 12px;
       text-align: center;
       display: block;
+      color: #6c6c6c;
 
       &::after {
         content: '';
         width: 1px;
-        height: 12px;
+        height: 6px;
         margin-bottom: 2px;
-        background-color: #333;
+        background-color: currentColor;
         display: block;
         margin-left: 50%;
       }
@@ -45,13 +48,17 @@
       &:first-child {
         grid-column-start: 2;
       }
+
+      &:nth-child(2)::after {
+        height: 8px;
+      }
     }
   }
 
   .bar {
     width: 100%;
-    height: 25px;
-    border: 1px solid #333;
+    height: 16px;
+    border: 1px solid #e8e8e8;
   }
 
   .fill {

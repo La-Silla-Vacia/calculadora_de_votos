@@ -6,9 +6,7 @@
       <div :class="$style.name">{{data.name}}</div>
 
       <footer :class="$style.footer">
-        <div :class="$style.bar">
-          <div :class="$style.fill" :style="{backgroundColor: data.color}"/>
-        </div>
+        <Bar :color="data.color"/>
 
         {{data.votes}} votos
       </footer>
@@ -17,7 +15,12 @@
     <div :class="$style.inner">
       <div :class="$style.title">Se repartirían así:</div>
 
-      <Bar :color="data.color"/>
+      <div :class="$style.table">
+        <div v-for="item in items" :key="item.name" v-if="item.passed" :class="$style.row">
+          <Bar :show-percentage="1" :color="data.color"/>
+          <span>{{item.name}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +35,12 @@
     },
     props: [
       'data'
-    ]
+    ],
+    computed: {
+      items () {
+        return this.$store.getters.getItems()
+      }
+    }
   }
 </script>
 
@@ -69,25 +77,28 @@
 
   .footer {
     text-align: left;
-    margin-top: 20px;
-  }
-
-  .bar {
-    width: 100%;
-    height: 25px;
-    border: 1px solid #333;
-  }
-
-  .fill {
-    height: 100%;
-    width: 100%;
-    background-color: $color__primary--base;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #848484;
   }
 
   .title {
     color: $color__secondary--dark;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 13px;
     font-family: $font__family--sans--especial;
+    margin-bottom: 15px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    align-items: flex-end;
+    grid-gap: 14px;
+    margin-bottom: 10px;
+
+    span {
+      font-size: 12px;
+    }
   }
 </style>
